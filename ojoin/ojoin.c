@@ -35,7 +35,7 @@ module {
 
 ModuleHeader MOD_HEADER
   = {
-	"third/ojoin",
+	"third/ojoin_alt",
 	"1.0",
 	"/OJOIN Command and Channel Mode +Y (Server Operator)",
 	"Valware",
