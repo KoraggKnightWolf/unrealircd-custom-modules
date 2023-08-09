@@ -29,9 +29,9 @@ module {
 #define CMD_OJOIN "OJOIN"
 #define MODE_SOPMODE 'Y'
 #define PREFIX_SOPMODE '!'
-#define IsJoiningAsSop(x)			(moddata_client(x, ojoin_md).i)
-#define SetJoiningAsSop(x)		do { moddata_client(x, ojoin_md).i = 1; } while(0)
-#define ClearJoiningAsSop(x)		do { moddata_client(x, ojoin_md).i = 0; } while(0)
+#define IsJoiningAsSop(x)			(moddata_client(x, ojoin_alt_md).i)
+#define SetJoiningAsSop(x)		do { moddata_client(x, ojoin_alt_md).i = 1; } while(0)
+#define ClearJoiningAsSop(x)		do { moddata_client(x, ojoin_alt_md).i = 0; } while(0)
 
 ModuleHeader MOD_HEADER
   = {
@@ -46,7 +46,7 @@ ModuleHeader MOD_HEADER
 void ojoin_free(ModData *m);
 const char *ojoin_serialize(ModData *m);
 void ojoin_unserialize(const char *str, ModData *m);
-ModDataInfo *ojoin_md;
+ModDataInfo *ojoin_alt_md;
 CMD_FUNC(ojoin);
 int cmode_sopmode_is_ok(Client *client, Channel *channel, char mode, const char *para, int type, int what);
 int ojoin_kick_check(Client *client, Client *target, Channel *channel, const char *comment, const char *client_member_modes, const char *target_member_modes, const char **reject_reason);
@@ -60,14 +60,14 @@ MOD_INIT()
 
 	/* some module data for restricting setting +Y to only settable using `/OJOIN` */
 	memset(&mreq, 0, sizeof(mreq));
-	mreq.name = "ojoin_md";
+	mreq.name = "ojoin_alt_md";
 	mreq.free = ojoin_free;
 	mreq.serialize = ojoin_serialize;
 	mreq.unserialize = ojoin_unserialize;
 	mreq.sync = 1;
 	mreq.type = MODDATATYPE_CLIENT;
-	ojoin_md = ModDataAdd(modinfo->handle, mreq);
-	if (!ojoin_md)
+	ojoin_alt_md = ModDataAdd(modinfo->handle, mreq);
+	if (!ojoin_alt_md)
 		abort();
 
 	/* Channel mode +Y */
