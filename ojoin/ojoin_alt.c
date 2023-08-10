@@ -112,13 +112,13 @@ int cmode_sopmode_is_ok(Client *client, Channel *channel, char mode, const char 
 	{
 		if (!IsServer(client) && !IsULine(client)) // if they're not a server or ULine
 		{
-			sendto_one(target, NULL, ":%s %d %s %s :%s", me.name, ERR_CANNOTDOCOMMAND, target->name, "MODE", "Permission denied!"); // DENIED
+			sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); // DENIED
 			return EX_ALWAYS_DENY; // DENIED even if you have override AHHAHA
 		}
 	}
 	if (!can_ojoin)
 	 {
-		sendto_one(target, NULL, ":%s %d %s %s :%s", me.name, ERR_CANNOTDOCOMMAND, target->name, "MODE", "Permission denied!");
+		sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); //DENIED
 		return EX_DENY;
 	}
 	
@@ -128,7 +128,7 @@ int cmode_sopmode_is_ok(Client *client, Channel *channel, char mode, const char 
 	{
 		if (!IsServer(client) && !IsULine(client)) // if they're not a server or ULine
 		{
-			sendto_one(target, NULL, ":%s %d %s %s :%s", me.name, ERR_CANNOTDOCOMMAND, target->name, "MODE", "Permission denied!"); // DENIED
+			sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); // DENIED
 			return EX_ALWAYS_DENY; // DENIED even if you have override AHHAHA
 		}
 	}
