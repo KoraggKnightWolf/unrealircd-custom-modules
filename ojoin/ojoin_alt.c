@@ -118,7 +118,7 @@ int cmode_sopmode_is_ok(Client *client, Channel *channel, char mode, const char 
 	}
 
 	if (!can_ojoin)
-	 {
+	{
 		sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); //DENIED
 		return EX_DENY;
 	}
