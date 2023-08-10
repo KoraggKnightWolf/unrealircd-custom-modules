@@ -110,18 +110,24 @@ int cmode_sopmode_is_ok(Client *client, Channel *channel, char mode, const char 
 		return EX_ALLOW;
 	else if (what == MODE_DEL && client != target) // if someone else is trying to -Y you
 	{
-		if (!IsServer(client) && !IsULine(client) && !can_ojoin) // if they're not a server or ULine and does not have can_ojoin
+		if (!IsServer(client) && !IsULine(client)) // if they're not a server or ULine
 		{
 			sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); // DENIED
 			return EX_ALWAYS_DENY; // DENIED even if you have override AHHAHA
 		}
+	}
+
+	if (!can_ojoin)
+	 {
+		sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); //DENIED
+		return EX_DENY;
 	}
 	
 	if (what == MODE_ADD && client == target && can_ojoin) // allow them to +Y themselves 
 		return EX_ALLOW;
 	else if (what == MODE_ADD && client != target) // if someone else is trying to +Y you
 	{
-		if (!IsServer(client) && !IsULine(client) && !can_ojoin) // if they're not a server or ULine and does not have can_ojoin
+		if (!IsServer(client) && !IsULine(client)) // if they're not a server or ULine
 		{
 			sendnumeric(client, ERR_CANNOTDOCOMMAND, "MODE", "Permission denied!"); // DENIED
 			return EX_ALWAYS_DENY; // DENIED even if you have override AHHAHA
