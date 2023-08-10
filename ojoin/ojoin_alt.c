@@ -196,7 +196,7 @@ CMD_FUNC(ojoin)
    
 	if (!IsULine(client) && !ValidatePermissionsForPath("ojoin", client, NULL, NULL, NULL))
 	{
-		sendnumeric(client, ERR_CANNOTDOCOMMAND, CMD_OJOIN, "Permission denied!");
+		sendnumeric(client, ERR_CANNOTDOCOMMAND, CMD_OJOIN, "Additional Error Check!");
 		return;
 	}
  
